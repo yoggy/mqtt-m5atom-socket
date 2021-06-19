@@ -1,0 +1,13 @@
+// Wifi config
+char *wifi_ssid      = "wifi ssid";
+char *wifi_password  = "wifi password";
+char *mqtt_host    = "iot.eclipse.org";
+int  mqtt_port       = 1883;
+
+char *mqtt_client_id = "mqtt-m5atom-socket-0001";
+bool mqtt_use_auth   = false;
+char *mqtt_username  = "username";
+char *mqtt_password  = "password";
+
+char *mqtt_subscribe_topic = "m5atom-socket/0001";
+char *mqtt_publish_topic = "m5atom-socket/0001/status";
