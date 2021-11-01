@@ -71,6 +71,7 @@ void setup() {
     }
     count = (count + 1) % 4;
   }
+  WiFi.setSleep(false);
   Serial.println("WiFi connected!");
   delay(1000);
 
