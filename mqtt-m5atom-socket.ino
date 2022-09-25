@@ -52,26 +52,29 @@ void setup() {
   // Wifi
   WiFi.mode(WIFI_MODE_STA);
   WiFi.begin(wifi_ssid, wifi_password);
+  WiFi.setSleep(false);
   int count = 0;
   while (WiFi.status() != WL_CONNECTED) {
-    delay(200);
-    switch (count) {
+    delay(250);
+    switch (count % 4) {
       case 0:
         Serial.println("|");
+        M5.dis.drawpix(0, 0xffff00);  // yellow
         break;
       case 1:
         Serial.println("/");
         break;
       case 2:
+        M5.dis.drawpix(0, 0x000000);  // black
         Serial.println("-");
         break;
       case 3:
         Serial.println("\\");
         break;
     }
-    count = (count + 1) % 4;
+    count ++;
+    if (count >= 240) reboot(); // 240 / 4 = 60sec
   }
-  WiFi.setSleep(false);
   Serial.println("WiFi connected!");
   delay(1000);
 
@@ -90,6 +93,8 @@ void setup() {
   Serial.println("MQTT connected!");
   delay(1000);
 
+  M5.dis.drawpix(0, 0x000088);  // blue
+
   mqtt_client.subscribe(mqtt_subscribe_topic);
 
   last_t = millis();
@@ -104,6 +109,7 @@ void setup() {
     reboot();
   }
   Serial.println("configTime() success!");
+  
   delay(1000);
 }
 
@@ -131,7 +137,7 @@ void loop() {
     ATOM.SetPowerOn();
   } else {
     ATOM.SetPowerOff();
-    M5.dis.drawpix(0, 0x0000ff); // red
+    M5.dis.drawpix(0, 0xff0000); // red
   }
   M5.update();
 
